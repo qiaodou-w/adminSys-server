@@ -5,7 +5,10 @@ const config = require('../config')
 const { logger } = require('../middlewares/logger')
 
 const url = 'mongodb://' + config.mongoDB.host + ':' + config.mongoDB.port + '/' + config.mongoDB.database
-const mongo = mongoose.createConnection(url) // 创建一个数据库连接
+const mongo = mongoose.createConnection(url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true }) // 创建一个数据库连接
 
 const db = {
   mongoose: mongoose,
