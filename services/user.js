@@ -9,9 +9,7 @@ const user = {
      * @return: { Object | null }
      */
   async login(userData) {
-    const result = await User.findOne(userData)
-    console.log(result)
-    return result
+    return await User.findOne(userData)
   }
 }
 
