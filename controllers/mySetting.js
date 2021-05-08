@@ -48,7 +48,7 @@ mySetting.updateAdmin = async(ctx, next) => {
   const { userName, password, uuid, name, tel, role } = ctx.request.body
   const user = await Users.findOne({ uuid })
   user.set({ userName, password, name, tel, role })
-  user.save()
+  await user.save()
   ctx.msg = '编辑成功'
   ctx.result = `编辑${userName}成功`
   return next()
