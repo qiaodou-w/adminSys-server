@@ -17,4 +17,5 @@ router.get('/management/list/fetch', controllers.management.fetchList) // 学生
 router.post('/management/add', controllers.management.addStu) // 添加学生
 router.post('/management/update', controllers.management.update) // 添加学生
 
+router.post('/mp/info/upload', controllers.mp.upload)
 module.exports = router

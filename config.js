@@ -9,8 +9,8 @@ module.exports = {
   logPath: path.resolve(__dirname, './logs/koa-template.log'),
   mongoDB: {
     database: 'campus',
-    username: 'root',
-    password: 'root',
+    username: 'adroot',
+    password: 'adroot',
     host: '127.0.0.1',
     port: 27017
   }
