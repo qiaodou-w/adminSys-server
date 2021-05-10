@@ -3,8 +3,11 @@ const path = require('path')
 const mongoose = require('mongoose') // 引用mongoose模块
 const config = require('../config')
 const { logger } = require('../middlewares/logger')
+const url = `mongodb://${config.mongoDB.username}:${config.mongoDB.password}@${config.mongoDB.host}:${config.mongoDB.port}/${config.mongoDB.database}`
 
-const url = 'mongodb://' + config.mongoDB.host + ':' + config.mongoDB.port + '/' + config.mongoDB.database
+// const url = `mongodb://adroot:adroot@112.74.180.107:27017/${config.mongoDB.database}?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false`
+// const url = 'mongodb://' + config.mongoDB.host + ':' + config.mongoDB.port + '/' + config.mongoDB.database
+
 const mongo = mongoose.createConnection(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
