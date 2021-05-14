@@ -8,20 +8,40 @@ const student = {
    * @return: { Object | null }
    */
   async fetchList(queryObj) {
-    return await Students.find()
+    const { name, studentNumber, counselor } = queryObj
+    let list
+    if (name) {
+      list = await Students.find({ name }).sort({ uuid: 1 })
+    } else if (studentNumber) {
+      list = await Students.find({ studentNumber }).sort({ uuid: 1 })
+    } else if (counselor) {
+      list = await Students.find({ counselor }).sort({ uuid: 1 })
+    } else {
+      list = await Students.find().sort({ uuid: 1 })
+    }
+    return list
   },
-
   async add(user) {
-    const student = new Students(user)
-    return await student.save()
+    const res = await Students.findOne({ uuid: user.uuid })
+    if (res) {
+      return false
+    } else {
+      const student = new Students(user)
+      return await student.save()
+    }
   },
 
   async update(user) {
+    const { uuid, studentNumber, name, tel, grade, college, room, counselor } = user
+    const stu = await Students.findOne({ uuid })
+    stu.set({ studentNumber, name, tel, grade, college, room, counselor })
+
+    return await stu.save()
+  },
+
+  async delete(user) {
     const { uuid } = user
-    const student = Students.findOne({ uuid })
-    console.log(student)
-    student.set(user)
-    return await student.save()
+    return await Students.deleteOne({ uuid })
   }
 
 }
