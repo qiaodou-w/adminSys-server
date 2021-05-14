@@ -1,11 +1,11 @@
 'use strict'
 
-const infoService = require('../services').infoHistory
+const studentsService = require('../services').students
 
 const mp = {}
 
 mp.upload = async(ctx, next) => {
-  const res = await infoService.upload(ctx.request.body)
+  const res = await studentsService.uploadInfo(ctx.request.body)
   if (res) {
     ctx.result = '添加成功'
     ctx.msg = '上传成功'

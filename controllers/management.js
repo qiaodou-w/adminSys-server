@@ -37,4 +37,10 @@ management.delete = async(ctx, next) => {
   ctx.msg = `删除${user.uuid}成功`
   return next()
 }
+
+management.fetchUploadInfo = async(ctx, next) => {
+  ctx.result = await studentsService.fetchUploadInfo()
+  ctx.msg = `删除成功`
+  return next()
+}
 module.exports = management

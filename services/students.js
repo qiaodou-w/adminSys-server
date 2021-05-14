@@ -1,4 +1,5 @@
 const Students = require('../models/index').getModel('students')
+const InfoHistory = require('../models/index').getModel('infoHistory')
 
 const student = {
   /**
@@ -42,6 +43,25 @@ const student = {
   async delete(user) {
     const { uuid } = user
     return await Students.deleteOne({ uuid })
+  },
+
+  async uploadInfo(userData) {
+    const { uuid, hasWrong, hasTravel, hasTouch, location, other } = userData
+    const time = new Date()
+    const stu = new InfoHistory({
+      uuid,
+      hasWrong,
+      hasTravel,
+      hasTouch,
+      location,
+      time,
+      other
+    })
+    return await stu.save()
+  },
+
+  async fetchUploadInfo() {
+    return await InfoHistory.find()
   }
 
 }
