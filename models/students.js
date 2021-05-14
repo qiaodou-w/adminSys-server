@@ -15,6 +15,7 @@ module.exports = {
       type: 'Number',
       required: true
     },
+    studentNumber: 'Number',
     grade: 'Number',
     college: 'String',
     room: 'String',
