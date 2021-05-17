@@ -48,7 +48,9 @@ const student = {
   async uploadInfo(userData) {
     const { uuid, hasWrong, hasTravel, hasTouch, location, other } = userData
     const time = new Date()
+    const owner = await Students.findOne({ uuid })
     const stu = new InfoHistory({
+      owner: owner,
       uuid,
       hasWrong,
       hasTravel,
@@ -61,7 +63,7 @@ const student = {
   },
 
   async fetchUploadInfo() {
-    return await InfoHistory.find()
+    return await InfoHistory.find().populate('owner').exec()
   }
 
 }

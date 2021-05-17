@@ -10,7 +10,8 @@ module.exports = {
     }, // UUID
     userName: {
       type: 'String',
-      required: true
+      required: true,
+      unique: true
     }, // 用户名
     password: {
       type: 'String',

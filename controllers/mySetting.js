@@ -11,7 +11,7 @@ mySetting.fetchAdminList = async(ctx, next) => {
   } else if (role) {
     adminList = await Users.find({ role })
   } else {
-    adminList = await Users.find()
+    adminList = await Users.find().sort({ uuid: 1 })
   }
   for (const item of adminList) {
     const { userName, uuid, role, name, tel, password } = item
@@ -30,13 +30,17 @@ mySetting.addAdmin = async(ctx, next) => {
     name,
     tel
   })
-  const res = await Users.findOne({ uuid })
-  if (!res) {
+  const user = await Users.findOne({ uuid })
+  const userNameRes = await Users.findOne({ userName })
+  if (!user && !userNameRes) {
     await adminUser.save().then((res) => {
       console.info(res)
       ctx.msg = '添加成功'
       ctx.result = `添加${userName}成功`
     })
+  } else if (userNameRes) {
+    ctx.msg = '用户名已存在'
+    ctx.result = `${userName}已存在`
   } else {
     ctx.msg = '统一认证码已存在'
     ctx.result = `${adminUser.uuid}用户已存在`
