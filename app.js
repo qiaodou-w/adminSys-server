@@ -3,6 +3,7 @@
 const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')()
 const staticCache = require('koa-static-cache')
+const koaStatic = require('koa-static')
 const cors = require('koa2-cors')
 const helmet = require('koa-helmet')
 
@@ -23,6 +24,7 @@ app.use(errorHandler)
 
 // Global Middlewares
 app.use(bodyParser)
+app.use(koaStatic(config.publicDir))
 app.use(staticCache(config.publicDir))
 
 // Helmet
