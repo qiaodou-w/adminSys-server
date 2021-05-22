@@ -64,6 +64,10 @@ const student = {
 
   async fetchUploadInfo() {
     return await InfoHistory.find().populate('owner').exec()
+  },
+
+  async fetchNoUploadInfo() {
+    return await InfoHistory.find().populate('owner').exec()
   }
 
 }

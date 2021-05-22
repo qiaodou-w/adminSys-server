@@ -34,7 +34,6 @@ mySetting.addAdmin = async(ctx, next) => {
   const userNameRes = await Users.findOne({ userName })
   if (!user && !userNameRes) {
     await adminUser.save().then((res) => {
-      console.info(res)
       ctx.msg = '添加成功'
       ctx.result = `添加${userName}成功`
     })

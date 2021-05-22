@@ -2,6 +2,7 @@
 
 const studentsService = require('../services').students
 const management = {}
+const dateFormat = require('../lib/date').dateFormat
 
 management.fetchList = async(ctx, next) => {
   const list = await studentsService.fetchList(ctx.query)
@@ -39,8 +40,34 @@ management.delete = async(ctx, next) => {
 }
 
 management.fetchUploadInfo = async(ctx, next) => {
-  ctx.result = await studentsService.fetchUploadInfo()
-  ctx.msg = `删除成功`
+  const list = await studentsService.fetchUploadInfo()
+  // const stuList = await studentsService.fetchList({})
+  // const notUpload = []
+
+  const today = dateFormat('YYYY-mm-dd', new Date())
+  const res = []
+  for (const obj of list) {
+    if (dateFormat('YYYY-mm-dd', obj.time).includes(today)) {
+      if (obj.owner.counselor === ctx.query.counselor || ctx.query.role === 'superAdmin') {
+        res.push(obj)
+      }
+    }
+  }
+  // for (const obj of res) {
+  //   for (const stu of stuList) {
+  //     if (stu.uuid === obj.owner.uuid) {
+  //       break
+  //     } else {
+  //       notUpload.push(stu)
+  //     }
+  //   }
+  // }
+  // console.log(notUpload)
+  // if (ctx.query.status === 'true') {
+  //
+  // }
+  ctx.result = res
   return next()
 }
+
 module.exports = management
